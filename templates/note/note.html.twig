@@ -1,0 +1,25 @@
+<div id="note-{{ note.id }}" class="html ui top attached segment" style="margin-top: 1rem;">
+    <div class="ui horizontal divider">
+        Note #{{ note.id }}
+    </div>
+
+    <a href="javascript:void(0)" class="ajax-delete ui basic button red" style="float: right;"
+       data-url="{{ path('bible_note_delete', {'note': note.id}) }}"
+       data-reload="#notes"
+    ><i class="icon trash"></i>Delete</a>
+    <a href="javascript:void(0)" class="ajax-save ui basic button green" style="float: right;margin-right: 1rem;"
+       data-title="Edit note #{{ note.id }}"
+       data-url="{{ path('bible_note_save', {'note': note.id}) }}"
+       data-reload="#notes"
+    ><i class="icon edit"></i>Edit</a>
+
+    <small>Created on {{ note.createdAt|date('d/m/Y h:i') }}</small>
+
+    {% if note.title is not null %}
+        <h4>{{ note.title }}</h4>
+    {% endif %}
+
+    <pre id="note-{{ note.id }}-highlight">
+        <code>{{ note.content }}</code>
+    </pre>
+</div>

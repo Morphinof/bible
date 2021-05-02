@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body > .grid {
+            height: 100%;
+        }
+        .image {
+            margin-top: -10rem;
+        }
+        .column {
+            max-width: 30rem;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <form method="post" class="ui large form error">
+                <h2 class="ui image header">
+                    <div class="content">
+                        Log-in to your account
+                    </div>
+                </h2>
+                <div class="ui stacked secondary segment">
+                    {% if error %}
+                        <div class="ui error message">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" placeholder="Your email" required autofocus>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" name="password" id="inputPassword" placeholder="Password" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui toggle checkbox">
+                            <input type="checkbox" name="_remember_me">
+                            <label>Remember me</label>
+                        </div>
+                    </div>
+                    <input type="submit" class="ui fluid large teal submit button" value="Login">
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            </form>
+            <div class="ui message">
+                <a href="{{ path('bible_register') }}">Register</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('.ui.toggle.checkbox').checkbox()
+        })
+    </script>
+{% endblock %}
+

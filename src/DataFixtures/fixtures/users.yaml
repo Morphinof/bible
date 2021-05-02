@@ -1,0 +1,9 @@
+users:
+  admin:
+    email: morphinof@bible.com
+    password: test
+    roles:
+      - 'ADMIN'
+  user:
+    email: user@bible.com
+    password: test

@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+    <div class="field">
+        {{ form_label(form.title) }}
+        {{ form_errors(form.title) }}
+        {{ form_widget(form.title) }}
+    </div>
+    <div class="field">
+        {{ form_label(form.issue) }}
+        {{ form_errors(form.issue) }}
+        {{ form_widget(form.issue) }}
+    </div>
+    <div class="field">
+        {{ form_label(form.status) }}
+        {{ form_errors(form.status) }}
+        {{ form_widget(form.status) }}
+    </div>
+    <div class="field">
+        {{ form_label(form.notes) }}
+        {{ form_errors(form.notes) }}
+        {{ form_widget(form.notes) }}
+    </div>
+{{ form_end(form) }}

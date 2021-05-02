@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome to your dev Bible!{% endblock %}
+
+{% block body %}
+
+<div style="padding: 2rem 2rem 2rem 2rem;">
+    <div class="ui two column centered grid">
+        <div class="column">
+            {% include 'menu.html.twig' %}
+        </div>
+    </div>
+    <div class="ui three column row grid">
+        <div class="column">
+            {% if app.user %}
+                <button
+                    id="add-task" class="ui right labeled icon button primary ajax-save"
+                    data-url="{{ path('bible_task_save') }}"
+                    data-title="New Task"
+                    data-reload="#tasks"
+                >
+                    <i class="right plus icon"></i>
+                    New Task
+                </button>
+                <a href="https://www.markdownguide.org/basic-syntax/" target="_blank" class="ui right labeled icon button primary">
+                    Markdown syntax
+                    <i class="right linkify icon"></i>
+                </a>
+            {% endif %}
+        </div>
+        <div class="column">
+            {% if app.user %}
+                <button
+                    id="add-daily" class="ui right labeled icon button primary ajax-save"
+                    data-url="{{ path('bible_daily_save') }}"
+                    data-title="New Daily"
+                    data-reload="#dailies"
+                >
+                    <i class="right plus icon"></i>
+                    New Daily
+                </button>
+            {% endif %}
+        </div>
+        <div class="column">
+            {% if app.user %}
+                <button
+                    id="add-note" class="ui right labeled icon button primary ajax-save"
+                    data-url="{{ path('bible_note_save') }}"
+                    data-title="New Note"
+                    data-reload="#notes"
+                >
+                    <i class="right plus icon"></i>
+                    New Note
+                </button>
+            {% endif %}
+        </div>
+    </div>
+    <div class="ui three column row grid">
+        <div id="tasks" class="column ajax-data" data-url="{{ path('bible_task_list') }}"></div>
+        <div id="dailies" class="column ajax-data" data-url="{{ path('bible_daily_list') }}"></div>
+        <div id="notes" class="column ajax-data" data-url="{{ path('bible_note_list') }}"></div>
+    </div>
+</div>
+{% endblock %}

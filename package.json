@@ -1,0 +1,35 @@
+{
+    "devDependencies": {
+        "@symfony/stimulus-bridge": "^2.0.0",
+        "@symfony/webpack-encore": "^1.0.0",
+        "core-js": "^3.0.0",
+        "gulp": "^3.9.1",
+        "gulp-cli": "^2.3.0",
+        "gulp-help": "^1.6.1",
+        "regenerator-runtime": "^0.13.2",
+        "stimulus": "^2.0.0",
+        "vue": "^2.6.12",
+        "vue-loader": "^15.9.6",
+        "vue-template-compiler": "^2.6.12",
+        "webpack-notifier": "^1.6.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    },
+    "resolutions": {
+        "graceful-fs": "^4.2.4"
+    },
+    "dependencies": {
+        "awesome-notifications": "^3.1.1",
+        "codemirror": "^5.61.0",
+        "highlight.js": "^10.7.2",
+        "markdown-it": "^12.0.6",
+        "semantic-ui": "^2.4.2",
+        "textarea-markdown": "^1.3.1"
+    }
+}

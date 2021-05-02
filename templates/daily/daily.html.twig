@@ -1,0 +1,69 @@
+<div id="daily-{{ daily.id }}" class="html ui top attached segment" style="margin-top: 1rem;">
+    <div class="ui horizontal divider">
+        Daily {{ daily.createdAt|date('d/m/Y') }}
+    </div>
+    <div class="ui center aligned basic segment">
+        <a href="javascript:void(0)" class="ajax-save ui basic button green"
+           data-title="Edit daily #{{ daily.id }}"
+           data-url="{{ path('bible_daily_save', {'daily': daily.id}) }}"
+           data-refresh-container="#daily-{{ daily.id }}"
+           data-refresh-url="{{ path('bible_daily_list') }}"
+        ><i class="icon edit"></i>Edit</a>
+        <a href="javascript:void(0)" class="ajax-delete ui basic button red"
+           data-url="{{ path('bible_daily_delete', {'daily': daily.id}) }}"
+           data-refresh-container="#dailies"
+           data-refresh-url="{{ path('bible_daily_list') }}"
+           data-refresh-mode="populate"
+        ><i class="icon trash"></i>Delete</a>
+    </div>
+    <div class="ui horizontal divider">Tasks</div>
+    <div class="ui relaxed divided list">
+        {% for task in daily.tasks %}
+            <div class="item">
+                <i class="large github middle aligned icon"></i>
+                <div class="content">
+                    <a class="header"{% if task.status is constant('Bible\\Entity\\Task::STATUS_COMPLETE') %} style="text-decoration: line-through;"{% endif %}>
+                        <a
+                            id="daily-{{ daily.id }}-edit-task-{{ task.id }}"
+                            class="header ajax-save"{% if task.status is constant('Bible\\Entity\\Task::STATUS_COMPLETE') %} style="text-decoration: line-through;"{% endif %}
+                            data-title="Edit task #{{ task.id }}"
+                            data-url="{{ path('bible_task_save', {'task': task.id}) }}"
+                            data-reload="#tasks,#dailies"
+                        >
+                            #{{ task.issue }} / {{ task.title }}
+                        </a>
+                    </a>
+                    <div class="description">
+                        <div id="daily-{{ daily.id }}-notes"{% if task.status is constant('Bible\\Entity\\Task::STATUS_COMPLETE') %} style="text-decoration: line-through;"{% endif %}>
+                            {{ task.notes|markdown_to_html }}
+                        </div>
+                    </div>
+                    <div class="ui form" style="margin-top: 2rem;">
+                        <div class="inline fields">
+                            {% set statuses = constant('Bible\\Entity\\Task::FORM_STATUSES') %}
+                            {% for name, status in statuses %}
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input
+                                            id="daily-task-{{ task.id }}-save-status"
+                                            name="daily-task-{{ task.id }}-save-status"
+                                            type="radio"
+                                            class="hidden ajax-save-field"
+                                            data-url="{{ path('bible_task_save_field', {'task': task.id, 'field': 'status'}) }}"
+                                            data-refresh-container="#task-{{ task.id }}"
+                                            data-refresh-url="{{ path('bible_task', {'task': task.id}) }}"
+                                            data-reload="#dailies"
+                                            value="{{ status }}"
+                                            {% if task.status == status %}checked="checked"{% endif %}
+                                        />
+                                        <label>{{ name }}</label>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

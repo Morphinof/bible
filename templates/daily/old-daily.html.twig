@@ -1,0 +1,23 @@
+<div id="daily-{{ daily.id }}" class="html ui top attached segment" style="margin-top: 1rem;">
+    <div class="ui horizontal divider">
+        Daily {{ daily.createdAt|date('d/m/Y') }}
+    </div>
+    <div class="ui relaxed divided list">
+        {% for task in daily.tasks %}
+            <div class="item">
+                <i class="large github middle aligned icon"></i>
+                <div class="content">
+                    <a
+                        id="old-daily-{{ daily.id }}-edit-task-{{ task.id }}"
+                        class="header ajax-save"{% if task.status is constant('Bible\\Entity\\Task::STATUS_COMPLETE') %} style="text-decoration: line-through;"{% endif %}
+                        data-title="Edit task #{{ task.id }}"
+                        data-url="{{ path('bible_task_save', {'task': task.id}) }}"
+                        data-reload="#tasks,#dailies"
+                    >
+                        #{{ task.issue }} / {{ task.title }}
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

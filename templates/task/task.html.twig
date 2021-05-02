@@ -1,0 +1,76 @@
+<div id="task-{{ task.id }}" class="html ui top attached segment form" style="margin-top: 1rem;">
+    <div class="ui horizontal divider">
+        Task #{{ task.id }}
+    </div>
+
+    <a href="javascript:void(0)" class="ajax-delete ui basic button green" style="float: right;"
+       data-url="{{ path('bible_task_delete', {'task': task.id}) }}"
+       data-refresh-container="#task-{{ task.id }}"
+       data-refresh-url="{{ path('bible_task', {'task': task.id}) }}"
+       data-reload="#dailies"
+    ><i class="icon trash"></i>Delete</a>
+    <a href="javascript:void(0)" class="ajax-save ui basic button red" style="float: right;"
+       data-title="Edit task #{{ task.id }}"
+       data-url="{{ path('bible_task_save', {'task': task.id}) }}"
+       data-reload="#tasks,#dailies"
+    ><i class="icon edit"></i>Edit</a>
+
+    <small>Created on {{ task.createdAt|date('d/m/Y h:i') }}</small>
+
+    {% if task.title is not null %}
+        <h3>{{ task.title }}</h3>
+    {% endif %}
+
+    <div class="ui clearing divider"></div>
+
+    <div class="two fields">
+        <div class="field">
+            <label>Issue</label>
+            <input
+                id="task-{{ task.id }}-save-field-issue"
+                type="text"
+                class="field ajax-save-field"
+                value="{{ task.issue }}"
+                data-url="{{ path('bible_task_save_field', {'task': task.id, 'field': 'issue'}) }}"
+                data-refresh-container="#task-{{ task.id }}"
+                data-refresh-url="{{ path('bible_task', {'task': task.id}) }}"
+                data-reload="#dailies"
+            />
+        </div>
+        {% set statuses = constant('Bible\\Entity\\Task::FORM_STATUSES') %}
+        <div class="field">
+            <label>Status</label>
+            <select
+                id="task-{{ task.id }}-save-field-status"
+                class="ui dropdown ajax-save-field"
+                data-url="{{ path('bible_task_save_field', {'task': task.id, 'field': 'status'}) }}"
+                data-refresh-container="#task-{{ task.id }}"
+                data-refresh-url="{{ path('bible_task', {'task': task.id}) }}"
+                data-reload="#dailies"
+            >
+                {% for name, status in statuses %}
+                    <option value="{{ status }}"{% if task.status == status %} selected="selected"{% endif %}>
+                        {{ name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <textarea
+                id="task-{{ task.id }}-save-field-notes"
+                data-preview="#task-{{ task.id }}-notes-preview"
+                class="ajax-save-field markdown"
+                style="width: 100%;height: 15rem;"
+                data-url="{{ path('bible_task_save_field', {'task': task.id, 'field': 'notes'}) }}"
+                data-refresh-container="#task-{{ task.id }}"
+                data-refresh-url="{{ path('bible_task', {'task': task.id}) }}"
+                data-reload="#dailies"
+            >{{ task.notes|raw }}</textarea>
+        </div>
+        <div class="field">
+            <div id="task-{{ task.id }}-notes-preview"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+{% set current = dailies|first %}
+{{ include('daily/daily.html.twig', {'daily': current}) }}
+
+{% for daily in dailies|filter(d => d.id != current.id) %}
+    {{ include('daily/old-daily.html.twig', {'daily': daily}) }}
+{% endfor %}
